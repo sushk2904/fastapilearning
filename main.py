@@ -78,3 +78,20 @@ def delete_post(id : int):
         detail = f"post with id: {id} doesn't exist")
 
     return Response(status_code = status.HTTP_204_NO_CONTENT)
+
+
+@app.put("/posts/{id}")
+def update_post(id : int, post: Post): #Used Post so the updated post comes in with the correct schema
+
+    index = find_index_post(id)
+
+    if index == None:
+            raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+            detail = f"post with id: {id} doesn't exist")
+    
+    post_dict = post.dict()
+    post_dict['id'] = id
+    my_posts[index] = post_dict
+
+
+    return {'data': post_dict}
