@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, status
+from fastapi import *
 from fastapi.params import Body
 from pydantic import BaseModel
 from typing import Optional
@@ -54,6 +55,12 @@ def get_latest_potest():
 @app.get("/posts/{id}")
 def get_post(id : int): # : int this automatically converts the id to int for us
     post = find_post(id) # We have to do it in int because when we use find_post method it returns us a string instead of an integer that is why we are converting it here using int() but later on we in the function itself put the strict parameter of accepting only int so we removed the int() from here
+    
+    if not post:
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"post with the id: {id} does not exist")
+
+        '''response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": f"post with the id: {id} does not exist"}'''
     return {"post_detail": post}
 
 
