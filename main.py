@@ -24,11 +24,11 @@ def get_posts():
     return {"this is your posts"}
 
 
-@app.post("/createposts")
-def create_posts(new_post: Post):
+@app.post("/posts")
+def create_posts(post: Post):
     
-    
-    print(new_post.dict())
-    return {"data": new_post}
+    print(post)
+    print(post.dict())
+    return {"data": post}
 
 # title str, content str
