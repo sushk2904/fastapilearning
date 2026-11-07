@@ -27,8 +27,7 @@ def get_posts():
 @app.post("/posts")
 def create_posts(post: Post):
     
-    print(post)
-    print(post.dict())
+    my_posts.append(post.dict())
     return {"data": post}
 
 # title str, content str
